@@ -1,19 +1,13 @@
 const express = require("express");
-const path = require('path')
+const path = require('path');
+const { email } = require("./controller/emailController");
 const app = express();
 
 app.use(express.json());
 
 app.use(express.static(path.join(__dirname, '../public')));
 
-app.post('/contact', (req, res) => {
-    const contactData = req.body;
-    console.log("Received contact data:", contactData);
-    
-    // Here, you can process the contactData as needed (e.g., save to a database, send an email, etc.)
-    // Then send an appropriate response back to the client
-    res.status(200).send("Contact data received successfully.");
-});
+app.post('/contact', email);
 
 app.use((req, res) => {
     res.status(404);
